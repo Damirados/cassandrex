@@ -10,6 +10,7 @@ defmodule Cassandrex.Query do
 
   def call(client, statement, values, opts) do
     query = prepare_query(statement, values, opts)
+            |> IO.inspect
     case CQErl.run_query(client, query) do
       {:ok, res} -> {:ok, Result.convert(res, query)}
       {:error, error} -> error(error)
